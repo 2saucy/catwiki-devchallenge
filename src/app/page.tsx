@@ -1,15 +1,26 @@
 import Search from '@/components/Search'
 import LogoSvg from '@/components/LogoSvg'
 
+const getData = async () => {
+  const res = await fetch('https://api.thecatapi.com/v1/breeds')
+
+  if(!res.ok){
+    throw new Error('failed to fetch')
+  }
+
+  return res.json()
+}
 
 export default async function Home() {
+  const cats = await getData()
+
   return (
     <main className='min-w-full text-[#291507]'>
         <div>
           <div className='p-24 rounded-t-[42px] sm:bg-hero-image-sm md:bg-hero-image-md lg:bg-hero-image-lg bg-no-repeat bg-cover p-24 text-white'>
               <LogoSvg fill="white" width={320} height={120}/>
               <p className='text-2xl max-w-[40%] mb-14'>Get to know more about your cat breed</p>
-              <Search />
+              <Search cats={cats} />
           </div>
           <div className='p-24 rounded-b-[42px] bg-[#E3E1DC]'>
               <p className='font-medium text-lg mb-9'><span className='pb-2 border-b-[3.21px] border-[#291507]'>Most S</span>earched Breeds</p>
