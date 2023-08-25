@@ -1,8 +1,9 @@
+import LogoSvg from "./LogoSvg";
 
 const Header = () => {
     return(
-        <header>
-            <img src='/images/CatwikiLogo.svg' alt='CatWiki Logo' />
+        <header className="py-7">
+            <LogoSvg fill="black" width={127} height={42} />
         </header>
     )
 }
