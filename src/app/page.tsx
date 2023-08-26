@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Search from '@/components/Search'
 import LogoSvg from '@/components/LogoSvg'
 
@@ -26,7 +27,9 @@ export default async function Home () {
               <p className='font-medium text-lg mb-9'><span className='pb-2 border-b-[3.21px] border-[#291507]'>Most S</span>earched Breeds</p>
               <div className='flex justify-between'>
                 <h2 className='font-bold text-5xl'>66+ Breeds For you <br/>to discover</h2>
-                <p className='font-bold text-lg opacity-60 flex items-center gap-1'>See more <span className="material-icons-outlined">trending_flat</span> </p>
+                <Link href="/top10">
+                  <p className='font-bold text-lg opacity-60 flex items-center gap-1'>See more <span className="material-icons-outlined">trending_flat</span> </p>
+                </Link>
               </div>
           </div>
         </div>
