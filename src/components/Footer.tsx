@@ -1,6 +1,6 @@
 import LogoSvg from "./LogoSvg"
 
-const Footer = () => {
+export default function Footer(){
     return(
         <footer className="bg-black text-white rounded-t-[42px] flex justify-between items-center py-7 px-24">
             <LogoSvg fill="white" width={127} height={42} />
@@ -8,5 +8,3 @@ const Footer = () => {
         </footer>
     )
 }
-
-export default Footer
