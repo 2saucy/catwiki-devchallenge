@@ -1,42 +1,68 @@
-'use client'
-import { useState } from "react";
-import Link from "next/link";
+'use client';
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { BreedInfo } from '@/app/types';
 
-export default function Search({ cats }){
+export default function Search({ breeds }: { breeds: Array<BreedInfo> }) {
+  const [filter, setFilter] = useState<string>('');
+  const [filteredCats, setFilteredCats] = useState<Array<BreedInfo>>([]);
+  const [isActive, setIsActive] = useState<boolean>(false);
 
-    const [filter, setFilter] = useState<string>('')
-    const [filteredCats, setFilteredCats]= useState<object[]>([])
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFilter(event.target.value);
+  };
 
-    const handleChange = (event: any) => {
-        setFilter(event.target.value)
-        const filtered = cats.filter((cat: any) => cat.name.toLowerCase().includes(event.target.value.toLowerCase()))
-        setFilteredCats(filtered)
+  useEffect(() => {
+    if (!filter) {
+      setFilteredCats(breeds);
+    } else {
+      setFilteredCats(
+        breeds.filter((breed) =>
+          breed.name.toLowerCase().includes(filter.toLowerCase())
+        )
+      );
     }
+  }, [filter, breeds]);
 
-    return(
-        <div className="relative">
-            <div className="bg-white text-black flex justify-between rounded-full p-6 w-96">
-                <input type="text" placeholder="Enter your breed" value={filter} onChange={handleChange} />
-                <span className="material-icons-outlined">search</span>
-            </div>
-            {
-                filter ? 
-                (<div className="bg-white text-black absolute mt-4 p-6 w-96 rounded-3xl">
-                    <ul className="max-h-56 overflow-auto">
-                        {
-                        filteredCats.length === 0 
-                        ? <li>No matches founded</li> 
-                        :
-                        filteredCats.map((cat: any) => (
-                            <Link key={cat.id} href={`/${cat.id}`}>
-                                <li className="font-medium text-lg rounded-xl p-3 hover:bg-[#979797]/10">{cat.name}</li>
-                            </Link>
-                        ))
-                        }
-                    </ul>
-                </div>) 
-                : <></>
-            }
+  return (
+    <div className='relative mt-8'>
+      <div className='flex max-w-[30%] justify-between rounded-full bg-white p-4 text-black max-md:p-2'>
+        <input
+          className='w-full'
+          type='text'
+          placeholder='Search'
+          value={filter}
+          onChange={handleChange}
+          onFocus={() =>
+            setTimeout(() => {
+              setIsActive(true);
+            }, 100)
+          }
+          onBlur={() =>
+            setTimeout(() => {
+              setIsActive(false);
+            }, 100)
+          }
+        />
+        <span className='material-icons-outlined'>search</span>
+      </div>
+      {isActive && (
+        <div className='absolute mt-4 w-96 rounded-3xl bg-white p-6 text-black'>
+          <ul className='max-h-56 overflow-auto'>
+            {filteredCats.length === 0 ? (
+              <li>No matches founded</li>
+            ) : (
+              filteredCats.map(({ id, name }) => (
+                <Link key={id} href={`/${id}`}>
+                  <li className='rounded-xl p-3 text-lg font-medium hover:bg-[#979797]/10'>
+                    {name}
+                  </li>
+                </Link>
+              ))
+            )}
+          </ul>
         </div>
-    )
+      )}
+    </div>
+  );
 }
