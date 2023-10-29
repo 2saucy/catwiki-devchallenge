@@ -1,15 +1,19 @@
-import './globals.css';
-import 'material-icons/iconfont/material-icons.css';
-import type { Metadata } from 'next';
-import { Montserrat } from 'next/font/google';
-import Link from 'next/link';
-import LogoSvg from '@/components/LogoSvg';
+import clsx from "clsx";
+import "@/styles/globals.css";
+import type { Metadata } from "next";
+import { Montserrat } from "next/font/google";
 
-const montserrat = Montserrat({ subsets: ['latin'] });
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'CatWiki | Home',
-  description: 'App to learn more about your cat breed',
+  title: {
+    default: "CatWiki",
+    template: "%s | CatWiki",
+  },
+  description: "App to learn more about your cat breed",
 };
 
 export default function RootLayout({
@@ -18,22 +22,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
-      <body
-        className={`${montserrat.className} flex flex-col justify-between max-lg:px-6 lg:px-24`}
-      >
-        <header className='py-7'>
-          <Link href='/'>
-            <LogoSvg fill='black' styles='w-[127px] h-[43px]' />
-          </Link>
-        </header>
+    <html lang="en">
+      <body className={clsx("min-h-screen antialiased", montserrat.className)}>
+        <Header />
         {children}
-        <footer className='flex justify-between gap-4 rounded-t-[42px] bg-black p-7 text-white max-sm:flex-col sm:items-center'>
-          <LogoSvg fill='white' styles='w-[127px] h-[42px]' />
-          <p className='max-sm:text-sm sm:text-lg'>
-            © created by 2saucy - devChallenge.io 2023
-          </p>
-        </footer>
+        <Footer />
       </body>
     </html>
   );

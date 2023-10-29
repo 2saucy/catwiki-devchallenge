@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        'hero-image-lg': "url('/images/HeroImagelg.png')",
-        'hero-image-md': "url('/images/HeroImagemd.png')",
-        'hero-image-sm': "url('/images/HeroImagesm.png')",
+        'hero-image-lg': "url('/HeroImagelg.png')",
+        'hero-image-md': "url('/HeroImagemd.png')",
+        'hero-image-sm': "url('/HeroImagesm.png')",
       },
     },
   },
